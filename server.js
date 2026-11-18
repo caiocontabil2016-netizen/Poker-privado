@@ -1,5 +1,7 @@
 const express=require('express');const http=require('http');const {Server}=require('socket.io');const crypto=require('crypto');const {Hand}=require('pokersolver');
-const app=express(),server=http.createServer(app),io=new Server(server,{cors:{origin:false}});app.use(express.static('public'));
+const app=express(),server=http.createServer(app),io=new Server(server,{cors:{origin:false}});app.use(express.static('public'));app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 const rooms=new Map();const SUITS=['s','h','d','c'],RANKS='23456789TJQKA';
 const uid=()=>crypto.randomBytes(12).toString('hex');const code=()=>crypto.randomBytes(3).toString('hex').toUpperCase();
 const safe=(s,n=22)=>String(s||'').replace(/[<>]/g,'').trim().slice(0,n);
